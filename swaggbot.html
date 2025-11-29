@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/assets/logos/SWAGG Gold Metal.png">
+    <title>SWAGGBOT GPT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="/assets/fonts/SWAGGFont.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+
+</head>
+<body data-theme="default">
+
+    <div id="theme-overlay"></div>
+
+    <div class="sidebar" id="sidebar">
+        <button class="new-chat-btn" id="newChatBtn"><i class="fas fa-plus"></i> New chat</button>
+        <div class="chat-history" id="chatHistory"></div>
+        <div class="sidebar-footer">
+            <button class="nav-btn" onclick="switchTab('chat')"><i class="fas fa-comment-alt"></i> Chat</button>
+            <button class="nav-btn" onclick="switchTab('kb')"><i class="fas fa-book"></i> Knowledge Base</button>
+            <button class="nav-btn" onclick="switchTab('builder')"><i class="fas fa-project-diagram"></i> Builder</button>
+            <button class="nav-btn" onclick="openSettings()"><i class="fas fa-cog"></i> Settings</button>
+            <button class="nav-btn" onclick="location.href='/premium'"><i class="fas fa-star"></i> Upgrade</button>
+            <button class="nav-btn" onclick="location.href='/help'"><i class="fas fa-question-circle"></i> Help</button>
+            <button class="nav-btn" onclick="location.href='/feedback'"><i class="fas fa-comment-dots"></i> Feedback</button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <select id="themeSelect" class="compact-select" onchange="applyTheme(this.value)">
+                <option value="default">Default</option>
+                <option value="dark">Dark Mode</option>
+                <option value="christmas">Christmas</option>
+                <option value="winter">Winter</option>
+                <option value="halloween">Halloween</option>
+                <option value="summer">Summer</option>
+                <option value="cyber">Cyberpunk</option>
+            </select>
+        </div>
+
+        <div id="tab-chat" class="tab-content active" style="padding:0; overflow:hidden;">
+            <div class="chat-scroll-area" id="chatArea" style="display:none;">
+                <div id="messageContainer"></div>
+            </div>
+            
+            <div id="welcomeScreen" class="welcome-container" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;">
+                <img src="/assets/logos/SWAGG Gold Metal.png" alt="SWAGGBOT Logo" style="max-width:10%; height:auto; margin-top:-150px;">
+                <h1>SWAGGBOT GPT</h1>
+                <p>Best WTLO AI Chatbot</p>
+            </div>
+
+            <div class="chat-controls-container">
+                <div class="model-bar">
+                    <div class="model-pill active" id="modelMini" onclick="setModel('Mini')"><i class="fas fa-bolt"></i> Mini</div>
+                    <div class="model-pill" id="modelPro" onclick="setModel('Pro')">
+                        <i class="fas fa-star"></i> Pro
+                        <span id="langSelectContainer" style="display:none; margin-left:5px;">
+                            <select id="proLanguageSelect" class="compact-select" onchange="state.settings.language=this.value; saveState()">
+                                <option value="English">English</option>
+                                <option value="Spanish">Spanish</option>
+                                <option value="French">French</option>
+                                <option value="German">German</option>
+                                <option value="Japanese">Japanese</option>
+                                <option value="Chinese">Chinese</option>
+                                <option value="Russian">Russian</option>
+                                <option value="Italian">Italian</option>
+                                <option value="Portuguese">Portuguese</option>
+                                <option value="Dutch">Dutch</option>
+                                <option value="Korean">Korean</option>
+                                <option value="Arabic">Arabic</option>
+                                <option value="Turkish">Turkish</option>
+                                <option value="Hindi">Hindi</option>
+                            </select>
+                        </span>
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <input type="text" id="chatInput" placeholder="Message SWAGGBOT..." />
+                    <button class="send-btn" id="sendBtn"><i class="fas fa-arrow-up"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-kb" class="tab-content">
+            <div class="kb-container">
+                <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
+                    <h2>Knowledge Base</h2>
+                    <button class="btn btn-primary" onclick="openKBModal()">Add</button>
+                </div>
+                <div id="kbList"></div>
+            </div>
+        </div>
+
+        <div id="tab-builder" class="tab-content" style="padding:0;">
+            <div class="builder-container">
+                <div class="palette">
+                    <h4>Nodes (Pro Only)</h4>
+                    <div class="node-template" draggable="true" ondragstart="drag(event)" data-type="trigger"><i class="fas fa-bolt"></i> Trigger</div>
+                    <div class="node-template" draggable="true" ondragstart="drag(event)" data-type="response"><i class="fas fa-comment"></i> Response</div>
+                    <div class="node-template" draggable="true" ondragstart="drag(event)" data-type="action"><i class="fas fa-cog"></i> Action</div>
+                </div>
+                <div class="canvas-area" id="canvasArea" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">Settings <i class="fas fa-times" onclick="closeSettings()" style="cursor:pointer"></i></div>
+            <div class="modal-body">
+                <div class="form-group" style="margin-bottom:15px;">
+                    <label>Bot Name</label>
+                    <input type="text" id="settingBotName" class="form-control" style="width:100%; padding:8px;">
+                </div>
+                <hr style="margin:15px 0; border:0; border-top:1px solid #ddd;">
+                <h4>Voice Settings (TTS)</h4>
+                <div class="form-group" style="margin:10px 0;">
+                    <label><input type="checkbox" id="settingVoiceEnabled"> Enable Voice Output</label>
+                </div>
+                <div class="voice-select-container">
+                    <select id="settingVoiceGender" class="compact-select">
+                        <option value="female">Female</option>
+                        <option value="male">Male</option>
+                    </select>
+                    <select id="settingVoiceRegion" class="compact-select">
+                        <option value="UK">UK (Great Britain)</option>
+                        <option value="US">USA</option>
+                    </select>
+                </div>
+                <hr style="margin:15px 0; border:0; border-top:1px solid #ddd;">
+                <button class="btn btn-danger" onclick="deleteAllChats()">Reset All Data</button>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="saveSettings()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="kbModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">Add KB Entry</div>
+            <div class="modal-body">
+                <input type="text" id="kbIntent" placeholder="User says..." style="width:100%; padding:10px; margin-bottom:10px;">
+                <textarea id="kbResponse" placeholder="Bot replies..." style="width:100%; height:100px; padding:10px; margin-bottom:10px;"></textarea>
+                <select id="kbMatchType" class="compact-select">
+                    <option value="partial">Partial Match</option>
+                    <option value="exact">Exact Match</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeKBModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveKBEntry()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
