@@ -120,7 +120,7 @@ If you believe SWAGGBOT or related materials infringe on your copyrighted conten
 
 ## 4.3 Send DMCA Notices To
 
-**Email:** *[swaggbot.dmcaclaims@protonmail.com](mailto:swaggbot.dmcaclaims@protonmail.com)*
+**Email:** *[swaggbot.dmcaclaims@protonmail.com](mailto:swaggychris20@gmail.com)*
 (Not a real email unless you choose to make it one.)
 
 ## 4.4 Response
