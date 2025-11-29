@@ -496,3 +496,7 @@ document.getElementById('sendBtn').onclick = sendMessage;
 document.getElementById('chatInput').onkeypress = (e) => { if(e.key==='Enter') sendMessage(); };
 document.getElementById('menuToggle').onclick = () => els.sidebar.classList.toggle('collapsed');
 document.getElementById('newChatBtn').onclick = createNewChat;
+
+
+// End of script.js
+

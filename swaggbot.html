@@ -8,8 +8,12 @@
     <title>SWAGGBOT GPT</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <!--CSS-->
+    <link rel="stylesheet" href="/style/style.css">
+    <link rel="stylesheet" href="/style/themes.css">
+    <!--Preload Fonts-->
     <link rel="preload" href="/assets/fonts/SWAGGFont.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    
 
 
 </head>
@@ -42,6 +46,7 @@
                 <option value="halloween">Halloween</option>
                 <option value="summer">Summer</option>
                 <option value="cyber">Cyberpunk</option>
+            
             </select>
         </div>
 
@@ -52,8 +57,7 @@
             
             <div id="welcomeScreen" class="welcome-container" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;">
                 <img src="/assets/logos/SWAGG Gold Metal.png" alt="SWAGGBOT Logo" style="max-width:10%; height:auto; margin-top:-150px;">
-                <h1>SWAGGBOT GPT</h1>
-                <p>Best WTLO AI Chatbot</p>
+                <h1>SWAGGBOT GPT</h1>              
             </div>
 
             <div class="chat-controls-container">
@@ -105,6 +109,9 @@
                     <div class="node-template" draggable="true" ondragstart="drag(event)" data-type="trigger"><i class="fas fa-bolt"></i> Trigger</div>
                     <div class="node-template" draggable="true" ondragstart="drag(event)" data-type="response"><i class="fas fa-comment"></i> Response</div>
                     <div class="node-template" draggable="true" ondragstart="drag(event)" data-type="action"><i class="fas fa-cog"></i> Action</div>
+                    <div class="node-template" draggable="true" ondragstart="drag(event)" data-type="condition"><i class="fas fa-box"></i> Condition</div>
+                    <div class="node-template" draggable="true" ondragstart="drag(event)" data-type="loop"><i class="fas fa-sync"></i> Loop</div>
+                    <div class="node-template" draggable="true" ondragstart="drag(event)" data-type="input"><i class="fas fa-pencil-alt"></i> User Input</div>
                 </div>
                 <div class="canvas-area" id="canvasArea" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
             </div>
@@ -162,5 +169,6 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="star.js"></script>
 </body>
 </html>

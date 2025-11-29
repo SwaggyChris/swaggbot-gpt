@@ -1,0 +1,150 @@
+/* THEMES */
+[data-theme="dark"] {
+    --primary: #beb20a;
+    --bg-body: #343541;
+    --bg-sidebar: #202123;
+    --bg-message-user: #343541;
+    --bg-message-bot: #444654;
+    --text-main: #ececf1;
+    --text-secondary: #c5c5d2;
+    --border: #565869;
+    --input-bg: #40414f;
+    --shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    --node-bg: #343541;
+    --node-header: #444654;
+}
+
+[data-theme="christmas"] {
+    --primary: #d42426;
+    --bg-body: #1a2f23; /* Dark Pine Green for contrast with snow */
+    --bg-sidebar: #0e1e16;
+    --bg-message-user: #1a2f23;
+    --bg-message-bot: #233a2d;
+    --text-main: #f0f0f0;
+    --text-secondary: #a8cba8;
+    --border: #c0392b;
+    --input-bg: #233a2d;
+    --accent-gradient: linear-gradient(135deg, #d42426, #27ae60);
+}
+
+[data-theme="winter"] {
+    --primary: #00d2ff;
+    --bg-body: #f0f8ff;
+    --bg-sidebar: #e6f7ff;
+    --bg-message-user: #ffffff;
+    --bg-message-bot: #e3f2fd;
+    --text-main: #2c3e50;
+    --text-secondary: #7fb3d5;
+    --border: #b3e5fc;
+    --accent-gradient: linear-gradient(135deg, #89f7fe, #66a6ff);
+}
+
+[data-theme="halloween"] {
+    --primary: #ff9a00;
+    --bg-body: #120505;
+    --bg-sidebar: #000000;
+    --bg-message-user: #1a1a1a;
+    --bg-message-bot: #220a0a;
+    --text-main: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --border: #5c1818;
+    --input-bg: #333;
+    --accent-gradient: linear-gradient(135deg, #ff9a00, #8800ff);
+}
+
+[data-theme="summer"] {
+    --primary: #6bfaff;
+    --bg-body: #c0ba87;
+    --bg-sidebar: #bd9d6d;
+    --bg-message-user: #ffffff;
+    --bg-message-bot: #fff3e0;
+    --text-main: #5d4037;
+    --text-secondary: #5da1aa;
+    --border: #ffcc80;
+    --accent-gradient: linear-gradient(135deg, #fce38a, #f38181);
+}
+
+[data-theme="cyber"] {
+    --primary: #00ff9d;
+    --bg-body: #050505;
+    --bg-sidebar: #000000;
+    --bg-message-user: #0b1021;
+    --bg-message-bot: #0a1f18;
+    --text-main: #00ff9d;
+    --text-secondary: #008f8f;
+    --border: #003333;
+    --input-bg: #0f1629;
+    --shadow: 0 0 10px #00ff9d;
+    --accent-gradient: linear-gradient(135deg, #00ff9d, #ff00ff);
+}
+
+
+
+/* GLOBAL RESET */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; }
+body { background-color: var(--bg-body); color: var(--text-main); height: 100vh; display: flex; overflow: hidden; transition: background-color 0.3s, color 0.3s; }
+
+/* --- REALISTIC ANIMATION LAYERS --- */
+#theme-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+
+/* Christmas: Realistic Snow (Multi-layer parallax) */
+.snow-layer { position: absolute; top: -10px; width: 100%; height: 100%; }
+.snow-flake { position: absolute; background: white; border-radius: 50%; opacity: 0.9; animation: fall linear infinite; filter: blur(1px); }
+@keyframes fall { to { transform: translateY(105vh) rotate(360deg); } }
+
+/* Winter: Frost Glass & Fog */
+.frost-overlay {
+    position: absolute; width: 100%; height: 100%;
+    box-shadow: inset 0 0 200px 50px rgba(255, 255, 255, 0.8);
+    background: radial-gradient(circle, transparent 60%, rgba(200, 230, 255, 0.4) 100%);
+    backdrop-filter: blur(2px);
+}
+
+/* Halloween: Realistic Drip & Flicker */
+.blood-drip {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100px;
+    background: linear-gradient(to bottom, rgba(138, 3, 3, 0.9) 0%, transparent 100%);
+    opacity: 0.8;
+}
+.blood-drop {
+    position: absolute; top: 0; width: 4px; background: #8a0303; border-radius: 0 0 10px 10px;
+    animation: dripDrop 4s infinite cubic-bezier(0.5, 0, 1, 0.5);
+}
+@keyframes dripDrop { 0% { height: 0; opacity: 1; } 80% { height: 200px; opacity: 1; } 100% { height: 200px; opacity: 0; transform: translateY(20px); } }
+
+/* Summer: Heat Haze & Sun Glare */
+.sun-glare {
+    position: absolute; top: -100px; right: -100px; width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(255, 200, 0, 0.4) 0%, transparent 70%);
+    filter: blur(40px); animation: sunPulse 5s infinite alternate;
+}
+.heat-haze { width: 100%; height: 100%; backdrop-filter: sepia(30%) brightness(110%); }
+@keyframes sunPulse { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+
+/* Cyber: Glitch & Scanlines */
+.scanlines {
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+    background-size: 100% 4px; width: 100%; height: 100%; position: absolute; z-index: 1; pointer-events: none;
+}
+.cyber-glitch {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    animation: glitchAnim 3s infinite; opacity: 0.05; background: white;
+}
+@keyframes glitchAnim {
+    0%, 90% { clip-path: inset(0 0 0 0); transform: translate(0); }
+    92% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, 2px); }
+    94% { clip-path: inset(50% 0 10% 0); transform: translate(2px, -2px); }
+    96% { clip-path: inset(0 0 0 0); transform: translate(0); }
+}
+
+
+/* Dark Mode Theme animation */
+
+
+
+.star-bg {
+    background-image: radial-gradient(white 1px, transparent 1px);
+    background-size: 50px 50px; animation: starMove 10s linear infinite;
+    width: 100%; height: 100%; opacity: 0.5;
+}
+@keyframes starMove { from { background-position: 0 0; } to { background-position: -1000px 1000px; } }
